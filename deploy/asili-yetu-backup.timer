@@ -1,0 +1,11 @@
+[Unit]
+Description=Daily ASILI YETU database backup
+
+[Timer]
+OnCalendar=*-*-* 02:15:00 UTC
+Persistent=true
+RandomizedDelaySec=300
+Unit=asili-yetu-backup.service
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,8 @@
+asiliyetu.online {
+    encode zstd gzip
+    reverse_proxy 127.0.0.1:8000
+}
+
+www.asiliyetu.online {
+    redir https://asiliyetu.online{uri} permanent
+}

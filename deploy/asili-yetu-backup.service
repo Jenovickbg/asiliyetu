@@ -1,0 +1,16 @@
+[Unit]
+Description=Verified SQLite backup for ASILI YETU
+
+[Service]
+Type=oneshot
+User=asili
+Group=asili
+WorkingDirectory=/opt/asili-yetu
+EnvironmentFile=/etc/asili-yetu.env
+ExecStart=/bin/bash /opt/asili-yetu/deploy/backup.sh
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/asili-yetu /var/backups/asili-yetu

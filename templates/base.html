@@ -1,0 +1,31 @@
+{% from '_logos.html' import foundation_logo %}
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ event.event_name }} | Réservez votre place — Fondation DYNASTIE Bantou{% endblock %}</title>
+  <meta name="description" content="Participez à {{ event.event_name }}, une conférence culturelle autour de notre histoire, de notre culture et de notre identité. Le {{ event.event_date|date_fr }} à {{ event.venue }}. Entrée gratuite sur réservation.">
+  <meta property="og:title" content="{{ event.event_name }} — {{ event.slogan }}">
+  <meta property="og:description" content="{{ event.event_date|date_fr }} · {{ event.venue }} · Entrée gratuite sur réservation.">
+  <meta property="og:type" content="website"><meta property="og:locale" content="fr_CD">
+  {% if request.endpoint == 'index' %}<meta property="og:url" content="{{ url_for('index', _external=True) }}">{% endif %}
+  {% if has_poster %}<meta property="og:image" content="{{ url_for('static', filename='images/affiche-officielle.jpg', _external=True) }}">{% endif %}
+  {% if has_compact %}<link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo-compact.png') }}">{% endif %}
+  <meta name="theme-color" content="#008344">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+</head>
+<body>
+<a class="skip" href="#contenu">Aller au contenu</a>
+<header class="site-header"><div class="container nav-wrap">
+  <a href="{{ url_for('index') }}" class="brand" aria-label="Fondation DYNASTIE Bantou — Accueil">
+  {% if has_logo %}{{ foundation_logo() }}{% else %}<span class="brand-text"><small>FONDATION</small><strong>DYNASTIE <em>Bantou</em></strong></span>{% endif %}</a>
+  <button class="menu-toggle" aria-controls="navigation" aria-expanded="false" hidden>Menu</button>
+  <nav id="navigation" aria-label="Navigation principale"><a href="{{ url_for('index') }}">Accueil</a><a href="{{ url_for('index') }}#a-propos">À propos</a><a href="{{ url_for('index') }}#programme">Programme</a><a class="button small" href="{{ url_for('reservation') }}">Réserver ma place</a></nav>
+</div></header>
+<main id="contenu">
+{% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}<div class="container flashes" role="status">{% for category, message in messages %}<p class="alert {{ category }}">{{ message }}</p>{% endfor %}</div>{% endif %}{% endwith %}
+{% block content %}{% endblock %}
+</main>
+<footer><div class="container footer-grid"><a class="brand footer-brand" href="{{ url_for('index') }}">{% if has_logo %}{{ foundation_logo() }}{% else %}<span class="brand-text"><small>FONDATION</small><strong>DYNASTIE <em>Bantou</em></strong></span>{% endif %}</a><p>{{ event.event_name }} · {{ event.event_date|date_fr }}<br><span>Notre histoire se transmet ensemble.</span></p><a href="{{ url_for('admin_dashboard' if current_user.is_authenticated else 'admin_login') }}">Administration</a></div><div class="container copyright">© 2026 Fondation DYNASTIE Bantou. Tous droits réservés.</div></footer>
+</body></html>

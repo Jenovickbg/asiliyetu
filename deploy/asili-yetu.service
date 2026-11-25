@@ -1,0 +1,25 @@
+[Unit]
+Description=ASILI YETU reservations (Waitress)
+After=network.target
+
+[Service]
+Type=simple
+User=asili
+Group=asili
+WorkingDirectory=/opt/asili-yetu
+EnvironmentFile=/etc/asili-yetu.env
+Environment=PYTHONDONTWRITEBYTECODE=1
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/opt/asili-yetu/.venv/bin/python /opt/asili-yetu/serve.py
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/asili-yetu
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% from '_logos.html' import event_logo %}
+{% block content %}
+<section class="hero"><div class="container hero-grid"><div class="hero-copy">
+  <p class="eyebrow"><span class="line"></span> RENCONTRE CULTURELLE · KINSHASA</p>
+  {% if has_event_logo %}<h1 class="official-event-heading"><span class="sr-only">{{ event.event_name }}</span><span class="event-logo-panel" aria-hidden="true">{{ event_logo() }}</span></h1>{% else %}<h1>{{ event.event_name }}</h1>{% endif %}<p class="hero-slogan">{{ event.slogan }}</p>
+  <p class="theme">« {{ event.theme }} »</p>
+  <p class="intro">Une rencontre entre générations pour redécouvrir notre histoire, célébrer notre culture et transmettre notre héritage.</p>
+  <div class="hero-details"><span>{{ event.event_date|date_fr }}</span><span>{{ event.start_time|replace(':', ' h ') }} – {{ event.end_time|replace(':', ' h ') }}</span><span>{{ event.venue }}</span></div>
+  <a class="button gold" href="{{ url_for('reservation') }}">Réserver ma place</a><p class="micro">Entrée gratuite · Réservation obligatoire</p>
+</div><div class="poster-area">
+  {% if has_poster %}<button class="poster-button" data-poster aria-label="Agrandir l’affiche officielle"><img class="poster" src="{{ url_for('static', filename='images/affiche-officielle.jpg') }}" alt="Affiche officielle de {{ event.event_name }}" fetchpriority="high"></button><p class="poster-caption">L’affiche officielle · Appuyez pour agrandir</p><dialog id="poster-dialog"><button class="dialog-close" aria-label="Fermer l’affiche">Fermer</button><img src="{{ url_for('static', filename='images/affiche-officielle.jpg') }}" alt="Affiche officielle de {{ event.event_name }} agrandie"></dialog>
+  {% else %}<div class="poster-placeholder"><span class="poster-frame" aria-hidden="true">◇</span><p>Une rencontre.<br>Des générations.<br>Un héritage.</p><span class="placeholder-label">L’affiche officielle sera dévoilée ici.</span></div>{% endif %}
+</div></div></section>
+<div class="event-ribbon"><div class="container"><span>{{ event.event_date|date_fr }}</span><span>Culture & identité</span><span>Dialogue & transmission</span><span>Fondation DYNASTIE Bantou</span></div></div>
+<section id="a-propos" class="section container about-grid"><div><p class="eyebrow green">REVENIR À L’ESSENTIEL</p><h2>Notre histoire.<br>Notre culture.<br><em>Notre identité.</em></h2></div><div class="about-copy"><p class="lead">{{ event.event_name }} est une initiative de la Fondation DYNASTIE Bantou qui rassemble les générations autour de la valorisation de notre patrimoine culturel, de nos origines et de la transmission de notre héritage.</p><p>Un espace pour faire dialoguer la jeunesse et les aînés, réfléchir à la décolonisation de l’esprit et redécouvrir ce qui nous relie. Ensemble, préservons et transmettons notre héritage culturel.</p><div class="quote">« La transmission commence<br>par la rencontre. »</div></div></section>
+<section id="programme" class="program section"><div class="container"><div class="section-heading"><div><p class="eyebrow green">UNE CULTURE VIVANTE</p><h2>Au programme</h2></div><p>Des idées, des regards et des voix<br>pour célébrer ce qui nous rassemble.</p></div><div class="program-grid">
+<article class="program-card"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 5h22v16H15l-7 6v-6H5zM10 11h12M10 16h8"/></svg><h3>Panels d’échanges</h3><p>Des discussions et des réflexions autour de notre histoire, de notre culture et de notre identité.</p><span>Écouter · Questionner · Partager</span></article>
+<article class="program-card"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 5h22v22H5zM5 23l8-9 6 7 3-4 5 6"/><circle cx="22" cy="11" r="2"/></svg><h3>Exposition d’œuvres d’art</h3><p>Une mise en valeur de la créativité et de l’expression artistique.</p><span>Découvrir · Contempler · Ressentir</span></article>
+<article class="program-card"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="12" y="3" width="8" height="17" rx="4"/><path d="M7 15v2a9 9 0 0 0 18 0v-2M16 26v4M11 30h10"/></svg><h3>Slam et poésie</h3><p>Des performances artistiques pour célébrer notre héritage culturel.</p><span>Vibrer · S’exprimer · Transmettre</span></article>
+</div></div></section>
+<section class="section container"><div class="practical"><div><p class="eyebrow">LE RENDEZ-VOUS EST PRIS</p><h2>Faisons vivre<br>nos racines.</h2><a class="button gold" href="{{ url_for('reservation') }}">Je réserve ma place</a></div><dl><div><dt>Quand ?</dt><dd>{{ event.event_date|date_fr }}<br>{{ event.start_time|replace(':', ' h ') }} – {{ event.end_time|replace(':', ' h ') }}</dd></div><div><dt>Où ?</dt><dd>{{ event.venue }}<small>{{ event.address }} · République démocratique du Congo</small></dd></div><div><dt>Comment participer ?</dt><dd>Entrée gratuite<small>Réservation obligatoire, dans la limite des places disponibles.</small></dd></div></dl></div></section>
+<section id="sponsors" class="sponsors-section" aria-labelledby="sponsors-title">
+  <div class="container">
+    <p class="eyebrow green">ILS NOUS ACCOMPAGNENT</p>
+    <h2 id="sponsors-title">Nos sponsors</h2>
+    <div class="sponsors-grid">
+      {% for name, viewport in [('DYNASTIE Bantou', '0 0 450 224'), ('New Hope College', '450 0 285 224'), ('JASIRI', '735 0 465 224'), ('NUMERIKA 360', '1200 0 480 224'), ('Sheko Design', '1680 0 230 224'), ('Z média', '1910 0 216 224')] %}
+      <div class="sponsor-logo">
+        <svg viewBox="{{ viewport }}" role="img" aria-label="{{ name }}" xmlns="http://www.w3.org/2000/svg">
+          <image href="{{ url_for('static', filename='images/sponsors-officiels.png') }}" width="2126" height="224" />
+        </svg>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

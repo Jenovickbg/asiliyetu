@@ -1,0 +1,16 @@
+.venv/
+.env
+instance/
+__pycache__/
+.pytest_cache/
+*.pyc
+.env.*
+!.env.example
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+backups/
+*.pem
+*.key

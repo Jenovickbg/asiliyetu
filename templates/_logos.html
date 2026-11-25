@@ -1,0 +1,9 @@
+{% macro foundation_logo() -%}
+<img class="foundation-logo" src="{{ url_for('static', filename='images/logo-horizontal.png') }}" alt="Fondation DYNASTIE Bantou" width="190" height="64">
+{%- endmacro %}
+
+{% macro event_logo() -%}
+<svg class="event-logo" viewBox="264 928 1952 1744" role="img" aria-label="ASILI YETU" xmlns="http://www.w3.org/2000/svg">
+  <image href="{{ url_for('static', filename='images/logo-asili-yetu.png') }}" width="2480" height="3508" />
+</svg>
+{%- endmacro %}
